@@ -20,7 +20,7 @@ POST /api/send-code/
 #### Request Body
 ```json
 {
-  "phone_number": "+998901234567"
+  "phone_number": "998901234567"
 }
 ```
 #### Response
@@ -37,7 +37,7 @@ POST /api/verify-code/
 #### Request Body
 ```json
 {
-  "phone_number": "+998901234567",
+  "phone_number": "998901234567",
   "code": "123456"
 }
 ```
@@ -50,25 +50,25 @@ POST /api/verify-code/
 ### 🔗 3. Referral – Show profile
 
 ```http
-GET /api/profile/?phone_number=+998901234567
+GET /api/profile/?phone_number=998901234567
 ```
 
 #### Response
 ```json
 {
-  "phone_number": "+998901234567",
+  "phone_number": "998901234567",
   "invite_code": "A1B2C3",
   "used_invite_code": "Z9Y8X7",
   "referrals": [
-    "+998911112233",
-    "+998944445566"
+    "998911112233",
+    "998944445566"
   ]
 }
 ```
 ### 🔗 4. Activating another user's invite code
 
 ```http
-POST /api/use-invite/?phone_number=+998901234567
+POST /api/use-invite/?phone_number=998901234567
 ```
 #### Request Body
 ```json
