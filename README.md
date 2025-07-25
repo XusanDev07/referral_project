@@ -68,7 +68,7 @@ GET /api/profile/?phone=998901234567
 ### 🔗 4. Activating another user's invite code
 
 ```http
-POST /api/use-invite/?phone_number=998901234567
+POST /api/use-invite/?phone=998901234567
 ```
 #### Request Body
 ```json
