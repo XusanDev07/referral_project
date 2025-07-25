@@ -19,7 +19,7 @@ class SendCodeView(APIView):
             code = '1234'
             TEMP_CODES[phone] = code
             time.sleep(2)
-            return Response({"message": "Kod yuborildi"}, status=200)
+            return Response({"message": "OTP send successfully!"}, status=200)
         return Response(serializer.errors, status=400)
 
 
@@ -33,8 +33,10 @@ class VerifyCodeView(APIView):
                 user, created = User.objects.get_or_create(phone_number=phone)
                 user.is_verified = True
                 user.save()
-                return Response({"message": "Tasdiqlandi"}, status=200)
-            return Response({"error": "Noto‘g‘ri kod"}, status=400)
+                return Response({"message": "Coniform!"}, status=200)
+            return Response({
+                "error": 'Code not match or expired'
+            }, status=400)
         return Response(serializer.errors, status=400)
 
 
@@ -42,13 +44,15 @@ class ProfileView(APIView):
     def get(self, request):
         phone = request.query_params.get('phone')
         if not phone:
-            return Response({'error': 'phone kerak'}, status=400)
+            return Response({
+                'error': 'Phone number is required'
+            }, status=400)
         try:
             user = User.objects.get(phone_number=phone)
             serializer = ProfileSerializer(user)
             return Response(serializer.data)
         except User.DoesNotExist:
-            return Response({'error': 'Foydalanuvchi topilmadi'}, status=404)
+            return Response({'error': 'User not found'}, status=404)
 
 
 class UseInviteCodeView(APIView):
@@ -57,10 +61,12 @@ class UseInviteCodeView(APIView):
         try:
             user = User.objects.get(phone_number=phone)
         except User.DoesNotExist:
-            return Response({'error': 'Foydalanuvchi topilmadi'}, status=404)
+            return Response({'error': 'User not found'}, status=404)
 
         if user.used_invite_code:
-            return Response({'message': 'Siz allaqachon kod kiritgansiz'}, status=400)
+            return Response({
+                'message': 'You have already used an invite code'
+            }, status=400)
 
         serializer = InviteCodeInputSerializer(data=request.data)
         if serializer.is_valid():
@@ -68,6 +74,8 @@ class UseInviteCodeView(APIView):
             if User.objects.filter(invite_code=code).exists():
                 user.used_invite_code = code
                 user.save()
-                return Response({'message': 'Kod aktivlashtirildi'})
-            return Response({'error': 'Kod topilmadi'}, status=404)
+                return Response({
+                    'message': 'Invite code applied successfully!'
+                })
+            return Response({'error': 'Code not found'}, status=404)
         return Response(serializer.errors, status=400)
