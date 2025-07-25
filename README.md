@@ -50,7 +50,7 @@ POST /api/verify-code/
 ### 🔗 3. Referral – Show profile
 
 ```http
-GET /api/profile/?phone_number=998901234567
+GET /api/profile/?phone=998901234567
 ```
 
 #### Response
