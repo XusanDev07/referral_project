@@ -1,6 +1,6 @@
 # Referral System API
 
-Bu loyiha telefon raqami orqali avtorizatsiya va foydalanuvchilar o‘rtasida referral (invayt) kodlar orqali bog‘lanishni ta’minlovchi oddiy backend API hisoblanadi. Django + DRF asosida qurilgan.
+This project is a simple backend API that enables authorization via phone number and connects users using referral (invite) codes. It is built with Django + DRF.
 
 ## Acknowledgements
 
@@ -12,7 +12,7 @@ Bu loyiha telefon raqami orqali avtorizatsiya va foydalanuvchilar o‘rtasida re
 
 ## API Reference
 
-### 🔐 1. Yuborish – Telefon raqam orqali avtorizatsiya boshlanishi
+### 🔐 1. Send – Start authorization via phone number
 
 ```http
 POST /api/send-code/
@@ -29,7 +29,7 @@ POST /api/send-code/
   "message": "Code sent successfully"
 }
 ```
-### 🔐 2. Tasdiqlash – Telefon raqam orqali avtorizatsiyani tasdiqlash
+### 🔐 2. Verify – Confirm authorization via phone number
 
 ```http
 POST /api/verify-code/
